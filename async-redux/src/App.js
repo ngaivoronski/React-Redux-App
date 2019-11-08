@@ -35,13 +35,19 @@ function App(props) {
 
   return (
     <div className="App">
-      <input name="breed" type="text" value={props.breed} onChange={breedChange}></input>
-      <input name="amount" type="text" value={props.amount} onChange={amountChange}></input>
-      <button onClick={() => getdata()}>Get Images!</button>
+      <h1>Dog Breed Visualiser</h1>
+      <div className="dog-form">
+        <label htmlFor="breed">Enter the breed: </label>
+        <input name="breed" type="text" value={props.breed} onChange={breedChange} className="dog-input"></input>
+        <label htmlFor="amount">Enter the amount: </label>
+        <input name="amount" type="text" value={props.amount} onChange={amountChange} className="dog-input"></input>
+        <button onClick={() => getdata()} className="dog-button">Get Images!</button>
+      </div>
+      {props.isFetching && <div>⏰</div>}
       {props.error && <p className="error">{props.error}</p>}
-      <div>
+      <div className="dog-images">
         {props.images.map(image => (
-          <img src={image}></img>
+          <img src={image} className="dog-img"></img>
         ))}
       </div>
     </div>
@@ -53,6 +59,7 @@ const mapStateToProps = state => ({
   error: state.error,
   breed: state.breed,
   amount: state.amount,
+  isFetching: state.isFetching,
 });
 
 export default connect(
